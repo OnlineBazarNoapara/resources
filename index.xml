@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta charset='utf-8'/>
+    <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5' name='viewport'/>
+    <title><data:blog.title/> - <data:blog.pageTitle/></title>
+    
+    <!-- SEO Meta Tags -->
+    <meta expr:content='data:blog.metaDescription' name='description'/>
+    <meta expr:content='data:blog.title' property='og:site_name'/>
+    <meta expr:content='data:blog.url' property='og:url'/>
+    <meta content='website' property='og:type'/>
+    <meta expr:content='data:blog.title' property='og:title'/>
+    <meta expr:content='data:blog.metaDescription' property='og:description'/>
+    <meta content='summary_large_image' name='twitter:card'/>
+    
+    <b:if cond='data:blog.postImageUrl'>
+        <meta expr:content='data:blog.postImageUrl' property='og:image'/>
+        <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+    </b:if>
+    
+    <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap' rel='stylesheet'/>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' rel='stylesheet'/>
+
+    <!-- Styles -->
+    <b:skin><![CDATA[
+    /* Variables */
+    :root {
+        --primary-color: #4a90e2;
+        --secondary-color: #f8f9fa;
+        --accent-color: #ff6b6b;
+        --text-color: #333333;
+        --link-color: #2970ff;
+        --border-color: #e9ecef;
+        --success-color: #28a745;
+        --warning-color: #ffc107;
+    }
+
+    /* Global Styles */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', Arial, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background: #ffffff;
+    }
+
+    a {
+        color: var(--link-color);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: var(--primary-color);
+    }
+
+    /* Header Styles */
+    .header {
+        background: var(--primary-color);
+        padding: 1rem;
+        color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .blog-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    /* Navigation */
+    .nav-menu {
+        background: white;
+        padding: 0.5rem;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .nav-menu ul {
+        list-style: none;
+        display: flex;
+        gap: 1rem;
+        margin: 0;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .nav-menu li a {
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .nav-menu li a:hover {
+        background-color: var(--secondary-color);
+    }
+
+    /* Product Grid */
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .product-card {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+        background: white;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .product-info {
+        padding: 1rem;
+    }
+
+    .product-title {
+        font-size: 1.1rem;
+        margin: 0 0 0.5rem;
+    }
+
+    .product-price {
+        font-weight: bold;
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .add-to-cart {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .add-to-cart:hover {
+        background: var(--link-color);
+    }
+
+    /* Footer */
+    .footer {
+        background: var(--secondary-color);
+        padding: 2rem 0;
+        margin-top: 2rem;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .header-content {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .nav-menu ul {
+            flex-wrap: wrap;
+        }
+
+        .product-grid {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+    }
+
+    /* Cart Styles */
+    .cart-icon {
+        position: relative;
+        cursor: pointer;
+    }
+
+    #cart-count {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: var(--accent-color);
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 0.8rem;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: white;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .mobile-menu-toggle {
+            display: block;
+        }
+
+        .nav-menu {
+            display: none;
+        }
+
+        .nav-menu.active {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            z-index: 1000;
+            padding: 2rem;
+        }
+
+        .nav-menu.active ul {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    /* Search Bar */
+    .search-form {
+        display: flex;
+        margin-bottom: 1rem;
+    }
+
+    .search-input {
+        flex-grow: 1;
+        padding: 0.5rem;
+        border: 1px solid var(--border-color);
+        border-right: none;
+        border-radius: 4px 0 0 4px;
+    }
+
+    .search-button {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+    }
+
+    /* Pagination */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .pagination a {
+        padding: 0.5rem 1rem;
+        margin: 0 0.25rem;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .pagination a:hover {
+        background-color: var(--secondary-color);
+    }
+
+    /* Product Labels */
+    .product-label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+
+    .label-sale {
+        background: var(--accent-color);
+        color: white;
+    }
+
+    .label-new {
+        background: var(--success-color);
+        color: white;
+    }
+
+    /* Accessibility */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+    ]]></b:skin>
+
+    <!-- Custom Scripts -->
+    <script>//<![CDATA[
+    // Shopping Cart functionality
+    let cart = [];
+    
+    function addToCart(productId, productName, price) {
+        cart.push({id: productId, name: productName, price: price});
+        updateCartUI();
+        showNotification('Product added to cart!');
+    }
+
+    function updateCartUI() {
+        const cartCount = document.getElementById('cart-count');
+        if(cartCount) {
+            cartCount.textContent = cart.length;
+        }
+    }
+
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.style.position = 'fixed';
+        notification.style.bottom = '20px';
+        notification.style.right = '20px';
+        notification.style.backgroundColor = 'var(--success-color)';
+        notification.style.color = 'white';
+        notification.style.padding = '10px';
+        notification.style.borderRadius = '4px';
+        notification.style.zIndex = '1000';
+        document.body.appendChild(notification);
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+        const navMenu = document.querySelector('.nav-menu');
+        navMenu.classList.toggle('active');
+    }
+
+    // Lazy Loading Images
+    document.addEventListener("DOMContentLoaded", function() {
+        var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+        if ("IntersectionObserver" in window) {
+            let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        let lazyImage = entry.target;
+                        lazyImage.src = lazyImage.dataset.src;
+                        lazyImage.classList.remove("lazy");
+                        lazyImageObserver.unobserve(lazyImage);
+                    }
+                });
+            });
+
+            lazyImages.forEach(function(lazyImage) {
+                lazyImageObserver.observe(lazyImage);
+            });
+        }
+    });
+    //]]></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class='header'>
+        <div class='header-content'>
+            <div class='blog-title'>
+                <b:section id='header' maxwidgets='1'>
+                    <b:widget id='Header1' locked='true' type='Header'/>
+                </b:section>
+            </div>
+            <div class='search-cart'>
+                <b:section id='search' maxwidgets='1'>
+                    <b:widget id='BlogSearch1' locked='false' type='BlogSearch'/>
+                </b:section>
+                <div class='cart-icon'>
+                    <i class='fas fa-shopping-cart'></i>
+                    <span id='cart-count'>0</span>
+                </div>
+            </div>
+            <button class='mobile-menu-toggle' onclick='toggleMobileMenu()'>
+                <i class='fas fa-bars'></i>
+                <span class='sr-only'>Toggle menu</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class='nav-menu'>
+        <ul>
+            <li><a href='/'>Home</a></li>
+            <li><a href='/search/label/electronics'>Electronics</a></li>
+            <li><a href='/search/label/fashion'>Fashion</a></li>
+            <li><a href='/search/label/home-living'>Home &amp; Living</a></li>
+            <li><a href='/deals'>Deals</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class='main-content'>
+        <b:section id='main' showaddelement='true'>
+            <b:widget id='Blog1' locked='true' type='Blog'>
+                <b:includable id='main' var='top'>
+                    <!-- Post Display Template -->
+                    <b:if cond='data:blog.pageType == &quot;index&quot;'>
+                        <div class='product-grid'>
+                            <b:loop values='data:posts' var='post'>
+                                <article class='product-card'>
+                                    <div class='product-image'>
+                                        <b:if cond='data:post.thumbnailUrl'>
+                                            <img class='lazy' expr:data-src='data:post.thumbnailUrl' src='data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='/>
+                                        </b:if>
+                                        <b:if cond='data:post.labels any (l => l.name == &quot;sale&quot;)'>
+                                            <span class='product-label label-sale'>Sale</span>
+                                        </b:if>
+                                        <b:if cond='data:post.labels any (l => l.name == &quot;new&quot;)'>
+                                            <span class='product-label label-new'>New</span>
+                                        </b:if>
+                                    </div>
+                                    <div class='product-info'>
+                                        <h2 class='product-title'><data:post.title/></h2>
+                                        <div class='product-price'>
+                                            <b:if cond='data:post.labels any (l => l.name == &quot;price&quot;)'>
+                                                <data:post.labels first (l => l.name == &quot;price&quot;).name/>
+                                            </b:if>
+                                        </div>
+                                        <button class='add-to-cart' expr:onclick='&quot;addToCart(\&quot;&quot; + data:post.id + &quot;\&quot;, \&quot;&quot; + data:post.title + &quot;\&quot;, \&quot;&quot; + data:post.labels first (l => l.name == &quot;price&quot;).name + &quot;\&quot;)&quot;'>
+                                            Add to Cart
+                                        </button>
+                                    </div>
+                                </article>
+                            </b:loop>
+                        </div>
+                        <!-- Pagination -->
+                        <b:if cond='data:olderPageUrl'>
+                            <div class='pagination'>
+                                <a expr:href='data:olderPageUrl'>&lt; Older Posts</a>
+                                <b:if cond='data:newerPageUrl'>
+                                    <a expr:href='data:newerPageUrl'>Newer Posts &gt;</a>
+                                </b:if>
+                            </div>
+                        </b:if>
+                    </b:if>
+                </b:includable>
+            </b:widget>
+        </b:section>
+    </main>
+
+    <!-- Footer -->
+    <footer class='footer'>
+        <div class='footer-content'>
+            <b:section class='footer-widgets' id='footer-1' preferred='yes'>
+                <b:widget id='HTML1' title='About Us' type='HTML'>
+                    <b:includable id='main'>
+                        <h2 class='title'><data:title/></h2>
+                        <div class='widget-content'>
+                            <data:content/>
+                        </div>
+                    </b:includable>
+                </b:widget>
+            </b:section>
+            <b:section class='footer-widgets' id='footer-2' preferred='yes'>
+                <b:widget id='LinkList1' title='Quick Links' type='LinkList'>
+                    <b:includable id='main'>
+                        <h2 class='title'><data:title/></h2>
+                        <div class='widget-content'>
+                            <ul>
+                                <b:loop values='data:links' var='link'>
+                                    <li><a expr:href='data:link.target'><data:link.name/></a></li>
+                                </b:loop>
+                            </ul>
+                        </div>
+                    </b:includable>
+                </b:widget>
+            </b:section>
+            <b:section class='footer-widgets' id='footer-3' preferred='yes'>
+                <b:widget id='HTML2' title='Newsletter' type='HTML'>
+                    <b:includable id='main'>
+                        <h2 class='title'><data:title/></h2>
+                        <div class='widget-content'>
+                            <form class='newsletter-form'>
+                                <input type='email' placeholder='Enter your email' required='required'/>
+                                <button type='submit'>Subscribe</button>
+                            </form>
+                        </div>
+                    </b:includable>
+                </b:widget>
+            </b:section>
+        </div>
+        <div class='footer-bottom'>
+            <p>&copy; 2024 <data:blog.title/>. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Schema.org Markup -->
+    <script type='application/ld+json'>
+    {
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "name": "<data:blog.title/>",
+        "url": "<data:blog.homepageUrl/>",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "<data:blog.homepageUrl/>search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+</body>
+</html>
